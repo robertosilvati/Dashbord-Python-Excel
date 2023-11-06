@@ -8,7 +8,7 @@ def fechar_janela():
 def center_window(win, width=350, height=300):
     screen_width = win.winfo_screenwidth()
     screen_height = win.winfo_screenheight()
-
+    
     x = (screen_width/2) - (width/2)
     y = (screen_height/2) - (height/2)
 
@@ -21,7 +21,6 @@ def carregar_arquivo():
         global df
         df = pd.read_excel(filepath)
         exibir_janela_resultados()
-
 
 def voltar_e_mostrar_principal(janela_resultados):
     janela_resultados.destroy()
@@ -42,6 +41,12 @@ def exibir_janela_resultados():
     botao_voltar = tk.Button(frame_botoes, text="Voltar", command=lambda: voltar_e_mostrar_principal(janela_resultados), bg="blue", fg="white")
     botao_voltar.pack(side=tk.LEFT, padx=5)
 
+    texto_resultados = tk.Text(janela_resultados, width=105, height=50)
+    texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
+    texto_resultados.tag_configure("center", justify='center')
+    texto_resultados.tag_add("center", "1.0", "end")
+    texto_resultados.pack(expand=True, fill=tk.BOTH)
+    texto_resultados.config(wrap="none")
     
     scrollbar_horizontal = tk.Scrollbar(janela_resultados, orient="horizontal", command=texto_resultados.xview)
     scrollbar_horizontal.pack(side=tk.BOTTOM, fill=tk.X)
@@ -50,12 +55,6 @@ def exibir_janela_resultados():
     scrollbar_vertical.pack(side=tk.RIGHT, fill=tk.Y)
     texto_resultados.configure(yscrollcommand=scrollbar_vertical.set)
 
-    texto_resultados = tk.Text(janela_resultados, width=105, height=50)
-    texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
-    texto_resultados.tag_configure("center", justify='center')
-    texto_resultados.tag_add("center", "1.0", "end")
-    texto_resultados.pack(expand=True, fill=tk.BOTH)
-    texto_resultados.config(wrap="none")
 
 janela = tk.Tk()
 janela.title("Projeto Dashboard")

@@ -59,17 +59,7 @@ def exibir_janela_resultados():
 
     botao_voltar = tk.Button(frame_topo, text="Voltar", command=lambda: voltar_e_mostrar_principal(janela_resultados), bg="green", fg="white")
     botao_voltar.pack(side=tk.LEFT, padx=5)
-<<<<<<< HEAD
 
-    texto_resultados = tk.Text(janela_resultados, width=105, height=50)
-    texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
-    texto_resultados.tag_configure("center", justify='center')
-    texto_resultados.tag_add("center", "1.0", "end")
-    texto_resultados.pack(expand=True, fill=tk.BOTH)
-    texto_resultados.config(wrap="none")
-=======
->>>>>>> teste
-    
 
     # Parte de baixo (dash de informações)
     frame_baixo = tk.Frame(janela_resultados)
@@ -78,14 +68,13 @@ def exibir_janela_resultados():
     botao_carregar_outro_arquivo = tk.Button(frame_baixo, text="Carregar Outro Arquivo", command=carregar_arquivo, bg="green", fg="white")
     botao_carregar_outro_arquivo.pack(side=tk.BOTTOM, padx=10)
 
-<<<<<<< HEAD
-=======
     texto_resultados = tk.Text(janela_resultados, width=105, height=50)
     texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
     texto_resultados.tag_configure("left", justify='left')
   
     scrollbar_horizontal = tk.Scrollbar(janela_resultados, orient="horizontal", command=texto_resultados.xview)
     scrollbar_horizontal.pack(side=tk.BOTTOM, fill=tk.X)
+
     texto_resultados.configure(xscrollcommand=scrollbar_horizontal.set)
     
     texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
@@ -93,7 +82,6 @@ def exibir_janela_resultados():
     # Agora, empacote o widget de texto
     texto_resultados.pack(expand=True, fill=tk.BOTH)
     texto_resultados.config(wrap="none")
->>>>>>> teste
 
 janela = tk.Tk()
 janela.title("Projeto Dashboard")

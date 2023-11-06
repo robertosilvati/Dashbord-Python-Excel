@@ -15,7 +15,7 @@ def center_window(win, width=350, height=300):
     win.geometry(f'{width}x{height}+{int(x)}+{int(y)}')
 
 def carregar_arquivo():
-    janela.lift()  # Eleva a janela principal para a frente
+    janela.lift()
     filepath = filedialog.askopenfilename(filetypes=[("Planilhas Excel", "*.xlsx")])
     if filepath:
         global df
@@ -24,18 +24,18 @@ def carregar_arquivo():
 
 def voltar_e_mostrar_principal(janela_resultados):
     janela_resultados.destroy()
-    janela.deiconify()  # Traz a janela principal de volta à frente
+    janela.deiconify()
 
 def atualizar_informacoes():
-    texto_resultados.delete("1.0", tk.END)  # Limpa o conteúdo atual
+    texto_resultados.delete("1.0", tk.END)
     texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
 
 def adaptar_geometria(janela):
     largura = janela.winfo_screenwidth()
     altura = janela.winfo_screenheight()
 
-    proporcao_largura = 0.8  # 80% da largura da tela
-    proporcao_altura = 0.8  # 80% da altura da tela
+    proporcao_largura = 0.8
+    proporcao_altura = 0.8
 
     largura_janela = int(largura * proporcao_largura)
     altura_janela = int(altura * proporcao_altura)
@@ -44,7 +44,7 @@ def adaptar_geometria(janela):
     posicao_y = (altura - altura_janela) // 2
 
     janela.geometry(f"{largura_janela}x{altura_janela}+{posicao_x}+{posicao_y}")
-    janela.minsize(width=667, height=375)  # Definindo uma largura mínima de 400 e altura mínima de 200
+    janela.minsize(width=667, height=375)
 
 def exibir_janela_resultados():
     janela_resultados = tk.Toplevel(janela)
@@ -53,15 +53,12 @@ def exibir_janela_resultados():
 
     global texto_resultados
 
-    # Parte de cima (com botões)
     frame_topo = tk.Frame(janela_resultados)
     frame_topo.pack(side=tk.TOP, pady=10)
 
     botao_voltar = tk.Button(frame_topo, text="Voltar", command=lambda: voltar_e_mostrar_principal(janela_resultados), bg="green", fg="white")
     botao_voltar.pack(side=tk.LEFT, padx=5)
 
-
-    # Parte de baixo (dash de informações)
     frame_baixo = tk.Frame(janela_resultados)
     frame_baixo.pack(side=tk.BOTTOM, pady=10)
 
@@ -71,15 +68,10 @@ def exibir_janela_resultados():
     texto_resultados = tk.Text(janela_resultados, width=105, height=50)
     texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
     texto_resultados.tag_configure("left", justify='left')
-  
     scrollbar_horizontal = tk.Scrollbar(janela_resultados, orient="horizontal", command=texto_resultados.xview)
     scrollbar_horizontal.pack(side=tk.BOTTOM, fill=tk.X)
-
     texto_resultados.configure(xscrollcommand=scrollbar_horizontal.set)
-    
     texto_resultados.insert(tk.END, df.to_string(index=True, justify='center'))
-
-    # Agora, empacote o widget de texto
     texto_resultados.pack(expand=True, fill=tk.BOTH)
     texto_resultados.config(wrap="none")
 
